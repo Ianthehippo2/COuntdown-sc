@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Day Countdown</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,30 +13,32 @@
         }
 
         body {
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: linear-gradient(to bottom, #4facfe, #00f2fe);
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            background-size: 400% 400%;
+            animation: gradient-animation 10s ease infinite;
             color: #fff;
             text-align: center;
             margin: 0;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
         }
 
         #counter {
-            font-size: 3rem;
-            font-weight: bold;
+            font-size: 4rem;
+            font-weight: 600;
             color: #00ff88;
             margin: 20px 0;
-            animation: fade-in 1s ease-in-out;
+            text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
         }
 
         p {
@@ -47,33 +50,29 @@
 
         button {
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             font-size: 1rem;
             font-weight: bold;
             color: #00f2fe;
             background: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, background-color 0.2s;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
         }
 
         button:hover {
             background: #00f2fe;
             color: #fff;
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
         }
 
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         @media (max-width: 768px) {
@@ -82,7 +81,7 @@
             }
 
             #counter {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
             p {
@@ -91,7 +90,7 @@
 
             button {
                 font-size: 0.9rem;
-                padding: 8px 16px;
+                padding: 10px 20px;
             }
         }
     </style>
@@ -113,7 +112,6 @@
         ];
 
         function getLastSchoolDay() {
-            // Get the last valid school day and set the time to 11:40 AM
             const lastDayStr = validSchoolDays[validSchoolDays.length - 1];
             const lastDay = new Date(lastDayStr);
             lastDay.setHours(11, 40, 0, 0); // Set to 11:40 AM
