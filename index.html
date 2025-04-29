@@ -31,7 +31,7 @@
         }
 
         #counter {
-            font-size: 5rem;
+            font-size: 3rem;
             font-weight: bold;
             color: #00ff88;
             margin: 20px 0;
@@ -82,7 +82,7 @@
             }
 
             #counter {
-                font-size: 4rem;
+                font-size: 2.5rem;
             }
 
             p {
@@ -112,16 +112,20 @@
             "2025-06-02", "2025-06-03", "2025-06-04"
         ];
 
-        function countRemainingDays() {
+        function getNextSchoolDay() {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-            return validSchoolDays.filter(dateStr => new Date(dateStr) >= today).length;
+            return validSchoolDays
+                .map(dateStr => new Date(dateStr))
+                .find(date => date >= today);
         }
 
         function updateCounter() {
-            const remaining = countRemainingDays();
-            document.getElementById("counter").textContent = remaining > 0 ? remaining : "🎉 Done!";
-        }
+            const nextSchoolDay = getNextSchoolDay();
+            if (!nextSchoolDay) {
+                document.getElementById("counter").textContent = "🎉 Done!";
+                return;
+            }
 
             const now = new Date();
             const diff = nextSchoolDay - now;
