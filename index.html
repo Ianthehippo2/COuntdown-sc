@@ -112,23 +112,24 @@
             "2025-06-02", "2025-06-03", "2025-06-04"
         ];
 
-        function getNextSchoolDay() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            return validSchoolDays
-                .map(dateStr => new Date(dateStr))
-                .find(date => date >= today);
+        function getLastSchoolDay() {
+            // Get the last valid school day
+            const lastDayStr = validSchoolDays[validSchoolDays.length - 1];
+            const lastDay = new Date(lastDayStr);
+            lastDay.setHours(23, 59, 59, 999); // Set to the end of the day
+            return lastDay;
         }
 
         function updateCounter() {
-            const nextSchoolDay = getNextSchoolDay();
-            if (!nextSchoolDay) {
+            const lastSchoolDay = getLastSchoolDay();
+            const now = new Date();
+
+            if (now > lastSchoolDay) {
                 document.getElementById("counter").textContent = "🎉 Done!";
                 return;
             }
 
-            const now = new Date();
-            const diff = nextSchoolDay - now;
+            const diff = lastSchoolDay - now;
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
