@@ -128,7 +128,8 @@
     <div id="counter">Loading...</div>
     <p>Counting days through June 4, 2025, at 11:40 AM.</p>
     <button onclick="updateCounter()">Refresh Countdown</button>
-
+    <button class="watch-live" onclick="watchLive()">WATCH LIVE</button>
+   
     <script>
         const validSchoolDays = [
             "2025-04-30", "2025-05-01", "2025-05-02",
@@ -175,6 +176,12 @@
                 `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
             setTimeout(updateCounter, 1000);
+        }
+
+        function watchLive() {
+            alert("Redirecting to live stream...");
+            // Replace the URL below with the actual live stream link
+            window.location.href = "https://www.twitch.tv/kaicenat";
         }
 
         updateCounter();
