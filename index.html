@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Day Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #4facfe, #00f2fe);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #counter {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #00ff88;
+            margin: 20px 0;
+            animation: fade-in 1s ease-in-out;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #00f2fe;
+            background: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            background: #00f2fe;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            #counter {
+                font-size: 4rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎓 School Days Remaining</h1>
+    <div id="counter">Loading...</div>
+    <p>Counting only specific school days through June 4, 2025.</p>
+    <button onclick="updateCounter()">Refresh Countdown</button>
+
+    <script>
+        const validSchoolDays = [
+            "2025-04-29", "2025-04-30", "2025-05-01", "2025-05-02",
+            "2025-05-05", "2025-05-06", "2025-05-07", "2025-05-08", "2025-05-09",
+            "2025-05-12", "2025-05-13", "2025-05-14", "2025-05-15", "2025-05-16",
+            "2025-05-19", "2025-05-20", "2025-05-21", "2025-05-22", "2025-05-23",
+            "2025-05-27", "2025-05-28", "2025-05-29", "2025-05-30",
+            "2025-06-02", "2025-06-03", "2025-06-04"
+        ];
+
+        function countRemainingDays() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return validSchoolDays.filter(dateStr => new Date(dateStr) >= today).length;
+        }
+
+        function updateCounter() {
+            const remaining = countRemainingDays();
+            document.getElementById("counter").textContent = remaining > 0 ? remaining : "🎉 Done!";
+        }
+
+        updateCounter();
+    </script>
+</body>
+</html>
