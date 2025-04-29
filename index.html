@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Day Countdown</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,32 +12,37 @@
         }
 
         body {
-            font-family: 'Poppins', Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            background-size: 400% 400%;
-            animation: gradient-animation 10s ease infinite;
+            background: linear-gradient(to bottom, #4facfe, #00f2fe);
             color: #fff;
             text-align: center;
             margin: 0;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #school-days {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ffdd57;
+            text-shadow: 0 0 10px #ffdd57, 0 0 20px #ffdd57;
         }
 
         #counter {
-            font-size: 4rem;
-            font-weight: 600;
+            font-size: 3rem;
+            font-weight: bold;
             color: #00ff88;
             margin: 20px 0;
-            text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+            animation: fade-in 1s ease-in-out;
         }
 
         p {
@@ -50,29 +54,33 @@
 
         button {
             margin-top: 20px;
-            padding: 12px 24px;
+            padding: 10px 20px;
             font-size: 1rem;
             font-weight: bold;
             color: #00f2fe;
             background: #fff;
             border: none;
-            border-radius: 25px;
+            border-radius: 5px;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            transition: transform 0.2s, background-color 0.2s;
         }
 
         button:hover {
             background: #00f2fe;
             color: #fff;
-            transform: scale(1.1);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
         }
 
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
@@ -81,7 +89,7 @@
             }
 
             #counter {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
 
             p {
@@ -90,13 +98,14 @@
 
             button {
                 font-size: 0.9rem;
-                padding: 10px 20px;
+                padding: 8px 16px;
             }
         }
     </style>
 </head>
 <body>
-    <h1>🎓 School Days Remaining</h1>
+    <h1>🎓 School Days Countdown</h1>
+    <div id="school-days">Loading school days...</div>
     <div id="counter">Loading...</div>
     <p>Counting only specific school days through June 4, 2025, at 11:40 AM.</p>
     <button onclick="updateCounter()">Refresh Countdown</button>
@@ -111,6 +120,12 @@
             "2025-06-02", "2025-06-03", "2025-06-04"
         ];
 
+        function countRemainingSchoolDays() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Normalize to midnight
+            return validSchoolDays.filter(dateStr => new Date(dateStr) >= today).length;
+        }
+
         function getLastSchoolDay() {
             const lastDayStr = validSchoolDays[validSchoolDays.length - 1];
             const lastDay = new Date(lastDayStr);
@@ -118,13 +133,10 @@
             return lastDay;
         }
 
-        function countRemainingSchoolDays() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); // Normalize to midnight
-            return validSchoolDays.filter(dateStr => new Date(dateStr) >= today).length;
-        }
-
         function updateCounter() {
+            const remainingSchoolDays = countRemainingSchoolDays();
+            document.getElementById("school-days").textContent = `${remainingSchoolDays} School Days Remaining`;
+
             const lastSchoolDay = getLastSchoolDay();
             const now = new Date();
 
@@ -140,10 +152,8 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            const remainingSchoolDays = countRemainingSchoolDays();
-
             document.getElementById("counter").textContent = 
-                `${remainingSchoolDays} school days left | ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
             setTimeout(updateCounter, 1000);
         }
