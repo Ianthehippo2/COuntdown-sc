@@ -1,190 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Day Countdown</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: linear-gradient(to bottom, #8B0000, #000000);
-            color: #fff;
-            text-align: center;
-            margin: 0;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        #school-days {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #fff;
-            text-shadow: 0 0 10px #000000, 0 0 20px #000000;
-        }
-
-        #counter {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #fff;
-            margin: 20px 0;
-            animation: fade-in 1s ease-in-out;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin-top: 10px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: bold;
-            color: #8B0000;
-            background: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, background-color 0.2s;
-        }
-
-        button:hover {
-            background: #fff;
-            color: #8B0000;
-            transform: scale(1.05);
-        }
-
-        .watch-live {
-            margin-top: 30px;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            background: #ff0000;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .watch-live:hover {
-            background: #cc0000;
-            transform: scale(1.1);
-        }
-
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            #counter {
-                font-size: 2.5rem;
-            }
-
-            p {
-                font-size: 1rem;
-            }
-
-            button {
-                font-size: 0.9rem;
-                padding: 8px 16px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Day Countdown</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #8B0000, #000000);
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    #school-days {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-shadow: 0 0 10px #000000, 0 0 20px #000000;
+    }
+    #counter {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      margin: 20px 0;
+      animation: fade-in 1s ease-in-out;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #8B0000;
+      background: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    button:hover {
+      background: #fff;
+      color: #8B0000;
+      transform: scale(1.05);
+    }
+    .watch-live {
+      margin-top: 30px;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      background: #ff0000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, background-color 0.3s;
+    }
+    .watch-live:hover {
+      background: #cc0000;
+      transform: scale(1.1);
+    }
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      #counter {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Offical Schooled Countdown</h1>
-    <div id="school-days">Loading school days...</div>
-    <div id="counter">Loading...</div>
-    <p>Counting Down to The Last Day of Schooled June 4</p>
-    <button onclick="updateCounter()">Refresh Countdown</button>
-    <button class="watch-live" onclick="watchLive()">WATCH LIVE</button>
-   
-    <script>
-        const validSchoolDays = [
-            "2025-04-30", "2025-05-01", "2025-05-02",
-            "2025-05-05", "2025-05-06", "2025-05-07", "2025-05-08", "2025-05-09",
-            "2025-05-12", "2025-05-13", "2025-05-14", "2025-05-15", "2025-05-16",
-            "2025-05-19", "2025-05-21", "2025-05-22", "2025-05-23",
-            "2025-05-27", "2025-05-28", "2025-05-29", "2025-05-30",
-            "2025-06-02", "2025-06-03", "2025-06-04"
-        ];
+  <h1>Official School Countdown</h1>
+  <div id="school-days">Loading school days...</div>
+  <div id="counter">Loading...</div>
+  <p>Counting Down to the Last Day of Schooled June 4</p>
+  <button onclick="updateCounter()">Refresh Countdown</button>
+  <button class="watch-live" onclick="watchLive()">WATCH LIVE</button>
 
-        function countRemainingSchoolDays() {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); // Normalize to midnight
-            return validSchoolDays.filter(dateStr => new Date(dateStr) >= today).length;
-        }
+  <script>
+    const validSchoolDays = [
+      "2025-04-30", "2025-05-01", "2025-05-02",
+      "2025-05-05", "2025-05-06", "2025-05-07", "2025-05-08", "2025-05-09",
+      "2025-05-12", "2025-05-13", "2025-05-14", "2025-05-15", "2025-05-16",
+      "2025-05-19", "2025-05-21", "2025-05-22", "2025-05-23",
+      "2025-05-27", "2025-05-28", "2025-05-29", "2025-05-30",
+      "2025-06-02", "2025-06-03", "2025-06-04"
+    ];
 
-        function getLastSchoolDay() {
-            const lastDayStr = validSchoolDays[validSchoolDays.length - 1];
-            const lastDay = new Date(lastDayStr);
-            lastDay.setHours(9, 40, 0, 0); // Set to 9:40 AM
-            return lastDay;
-        }
+    function countRemainingSchoolDays() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return validSchoolDays.filter(dateStr => new Date(dateStr) >= today).length;
+    }
 
-        function updateCounter() {
-            const remainingSchoolDays = countRemainingSchoolDays();
-            document.getElementById("school-days").textContent = `${remainingSchoolDays} School Days Remaining`;
+    function getLastSchoolDay() {
+  const lastDay = new Date("2025-06-04T09:40:00");
+  return lastDay;
+}
 
-            const lastSchoolDay = getLastSchoolDay();
-            const now = new Date();
+    function updateCounter() {
+      const remainingSchoolDays = countRemainingSchoolDays();
+      document.getElementById("school-days").textContent = `${remainingSchoolDays} School Days Remaining`;
 
-            if (now > lastSchoolDay) {
-                document.getElementById("counter").textContent = "🎉 Done!";
-                return;
-            }
+      const lastSchoolDay = getLastSchoolDay();
+      const now = new Date();
 
-            const diff = lastSchoolDay - now;
+      if (now > lastSchoolDay) {
+        document.getElementById("counter").textContent = "🎉 Done!";
+        return;
+      }
 
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      const diff = lastSchoolDay - now;
 
-            document.getElementById("counter").textContent = 
-                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            setTimeout(updateCounter, 1000);
-        }
+      document.getElementById("counter").textContent =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-        function watchLive() {
-            alert("Redirecting to live stream...");
-            // Replace the URL below with the actual live stream link
-            window.location.href = "https://www.twitch.tv/kaicenat";
-        }
+      setTimeout(updateCounter, 1000);
+    }
 
-        updateCounter();
-    </script>
+    function watchLive() {
+      alert("Redirecting to live stream...");
+      window.location.href = "https://www.twitch.tv/kaicenat";
+    }
+
+    updateCounter();
+  </script>
 </body>
 </html>
