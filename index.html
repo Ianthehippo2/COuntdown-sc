@@ -147,7 +147,7 @@
         }
 
         function getLastSchoolDay() {
-            const lastDayStr = validSchoolDays[validSchoolDays.length];
+            const lastDayStr = validSchoolDays[validSchoolDays.length - 1];
             const lastDay = new Date(lastDayStr);
             lastDay.setHours(9, 40, 0, 0); // Set to 9:40 AM
             return lastDay;
