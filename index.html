@@ -166,5 +166,108 @@
 
     updateCounter();
   </script>
+<div id="coming-soon-cover">
+  <div class="coming-soon-box">
+    <div class="badge">Get Ready for the Countdown</div>
+    <h1>Coming Soon</h1>
+    <p>Something is about to go Crazy! Come back soon.</p>
+    <div id="countdown">Loading countdown...</div>
+  </div>
+</div>
+
+<style>
+  #coming-soon-cover {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px;
+  }
+
+  .coming-soon-box {
+    width: min(90%, 600px);
+    text-align: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 40px 30px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  .badge {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .coming-soon-box h1 {
+    margin: 0 0 12px;
+    font-size: clamp(38px, 6vw, 64px);
+    letter-spacing: 2px;
+  }
+
+  .coming-soon-box p {
+    margin: 0 0 24px;
+    font-size: clamp(16px, 2vw, 20px);
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  #countdown {
+    display: inline-block;
+    min-width: 260px;
+    padding: 16px 22px;
+    border-radius: 16px;
+    font-size: clamp(18px, 2.6vw, 28px);
+    font-weight: bold;
+    letter-spacing: 1px;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+</style>
+
+<script>
+  (function () {
+    const removeDate = new Date("2026-05-04T09:40:00-04:00"); // Eastern time
+    const cover = document.getElementById("coming-soon-cover");
+    const countdown = document.getElementById("countdown");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = removeDate - now;
+
+      if (diff <= 0) {
+        if (cover) cover.remove();
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdown.textContent =
+        days + "d " +
+        hours.toString().padStart(2, "0") + "h " +
+        minutes.toString().padStart(2, "0") + "m " +
+        seconds.toString().padStart(2, "0") + "s";
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>
 </body>
 </html>
