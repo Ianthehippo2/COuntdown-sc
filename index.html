@@ -21,30 +21,23 @@
       color: #fff;
       text-align: center;
     }
-    <div id="logo-container">
-  <img src="KKC.png" alt="Schooled Logo" id="main-logo">
-</div>
+    <img 
+  src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/42060c2720205ddb0a43b666bc0f539c79c31441/KKC.png" 
+  id="main-logo"
+/>
 
 <style>
-  #logo-container {
-    position: absolute;
-    top: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    pointer-events: none;
-  }
-
   #main-logo {
-    max-width: 500px;
-    width: 60%;
-    opacity: 0.9;
-    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.8));
+    width: 300px;
+    max-width: 80%;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+    animation: fade-in 1s ease-in-out;
   }
 
   @media (max-width: 768px) {
     #main-logo {
-      width: 80%;
+      width: 220px;
     }
   }
 </style>
