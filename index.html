@@ -141,7 +141,7 @@
       const now = new Date();
 
       if (now > lastSchoolDay) {
-        document.getElementById("counter").textContent = "🎉 Done!";
+        document.getElementById("counter").textContent = "ITS OVER!";
         return;
       }
 
@@ -258,10 +258,10 @@
       const seconds = Math.floor((diff / 1000) % 60);
 
       countdown.textContent =
-        days + "d " +
-        hours.toString().padStart(2, "0") + "h " +
-        minutes.toString().padStart(2, "0") + "m " +
-        seconds.toString().padStart(2, "0") + "s";
+        days + "D " +
+        hours.toString().padStart(2, "0") + "H " +
+        minutes.toString().padStart(2, "0") + "M " +
+        seconds.toString().padStart(2, "0") + "S";
     }
 
     updateCountdown();
