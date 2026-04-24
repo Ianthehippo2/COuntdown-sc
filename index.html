@@ -21,6 +21,33 @@
       color: #fff;
       text-align: center;
     }
+    <div id="logo-container">
+  <img src="KKC.png" alt="Schooled Logo" id="main-logo">
+</div>
+
+<style>
+  #logo-container {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  #main-logo {
+    max-width: 500px;
+    width: 60%;
+    opacity: 0.9;
+    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.8));
+  }
+
+  @media (max-width: 768px) {
+    #main-logo {
+      width: 80%;
+    }
+  }
+</style>
     h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
