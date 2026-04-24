@@ -25,23 +25,6 @@
   src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/42060c2720205ddb0a43b666bc0f539c79c31441/KKC.png" 
   id="main-logo"
 />
-
-<style>
-  #main-logo {
-    width: 300px;
-    max-width: 80%;
-    margin-bottom: 15px;
-    filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
-    animation: fade-in 1s ease-in-out;
-  }
-
-  @media (max-width: 768px) {
-    #main-logo {
-      width: 220px;
-    }
-  }
-</style>
-  
     h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
@@ -126,6 +109,19 @@
         padding: 8px 16px;
       }
     }
+    #main-logo {
+  width: 300px;
+  max-width: 80%;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.8));
+  animation: fade-in 1s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  #main-logo {
+    width: 220px;
+  }
+}
   </style>
 </head>
 <body>
@@ -137,10 +133,10 @@
 
   <script>
     const validSchoolDays = [
-      "2026-04-30", "2026-05-01", "2026-05-04", "2026-05-05", "2026-5-06", "2026-05-07", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15",
+      "2026-04-30", "2026-05-01", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15",
       "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21",
-      "2025-05-22", "2026-05-26", "2026-05-27", "2026-05-28",
-      "2026-05-29", "2026-06-01", "2025-06-02", "2025-06-03", "2025-06-04"
+      "2026-05-22", "2026-05-26", "2026-05-27", "2026-05-28",
+      "2026-05-29", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04"
     ];
 
     function countRemainingSchoolDays() {
