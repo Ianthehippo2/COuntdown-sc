@@ -38,12 +38,20 @@
       color: #fff;
     }
     #counter {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #fff;
-      margin: 20px 0;
-      animation: fade-in 1s ease-in-out;
-    }
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  margin: 20px 0;
+  animation: fade-in 1s ease-in-out;
+
+  /* BLUE BACKGROUND BOX */
+  background: linear-gradient(135deg, #4FC3F7, #0288D1);
+  padding: 15px 25px;
+  border-radius: 12px;
+
+  /* styling to match your site */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
     p {
       font-size: 1.2rem;
       margin-top: 10px;
@@ -175,7 +183,7 @@
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
       document.getElementById("counter").textContent =
-        `${days}D ${hours}H ${minutes}M ${seconds}S`;
+        `${days}DAYS ${hours}HOURS ${minutes}MINUTES ${seconds}SECONDS`;
 
       setTimeout(updateCounter, 1000);
     }
