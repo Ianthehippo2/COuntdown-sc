@@ -267,6 +267,76 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   })();
+
+</script>
+<div id="regular-days-card">
+  <div class="regular-days-label">Regular School Days Left</div>
+  <div id="regular-days-number">Loading...</div>
+</div>
+
+<style>
+  #regular-days-card {
+    margin: 10px 0 20px;
+    padding: 18px 28px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    text-align: center;
+  }
+
+  .regular-days-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+
+  #regular-days-number {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 10px #000, 0 0 20px #000;
+  }
+</style>
+
+<script>
+  (function () {
+    const regularSchoolDays = [
+      "2026-04-27",
+      "2026-04-28",
+      "2026-04-29",
+      "2026-04-30",
+      "2026-05-01",
+      "2026-05-04",
+      "2026-05-05",
+      "2026-05-06",
+      "2026-05-07",
+      "2026-05-26",
+      "2026-05-27",
+      "2026-05-28",
+      "2026-05-29"
+    ];
+
+    function updateRegularSchoolDays() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const remaining = regularSchoolDays.filter(dateStr => {
+        const day = new Date(dateStr + "T00:00:00");
+        return day >= today;
+      }).length;
+
+      document.getElementById("regular-days-number").textContent =
+        remaining + " Days";
+    }
+
+    updateRegularSchoolDays();
+    setInterval(updateRegularSchoolDays, 1000);
+  })();
 </script>
 </body>
 </html>
