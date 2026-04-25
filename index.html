@@ -218,10 +218,7 @@
 <style>
   #coming-soon-cover {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     width: 100vw;
     height: 100vh;
     z-index: 9999999;
@@ -282,69 +279,39 @@
     background: rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.15);
   }
-#cloud-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
-.cloud {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.8;
-  filter: blur(2px);
-  animation: moveCloud linear infinite;
-}
-
-.cloud::before,
-.cloud::after {
-  content: "";
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-}
-
-.cloud.small { width: 60px; height: 30px; }
-.cloud.medium { width: 120px; height: 60px; }
-.cloud.large { width: 200px; height: 100px; }
-
-.cloud.small::before { width: 30px; height: 30px; top: -10px; left: 10px; }
-.cloud.small::after { width: 40px; height: 40px; top: -15px; right: 10px; }
-
-.cloud.medium::before { width: 60px; height: 60px; top: -20px; left: 20px; }
-.cloud.medium::after { width: 70px; height: 70px; top: -25px; right: 20px; }
-
-.cloud.large::before { width: 100px; height: 100px; top: -30px; left: 40px; }
-.cloud.large::after { width: 110px; height: 110px; top: -35px; right: 40px; }
-
-/* PASTE IT HERE */
-body > *:not(#cloud-container) {
-  position: relative;
-  z-index: 1;
-}
-
 </style>
 
 <script>
   (function () {
-    const removeDate = new Date("2026-05-04T09:40:00-04:00"); // Eastern time
+    const removeDate = new Date("2026-05-04T09:40:00-04:00");
     const cover = document.getElementById("coming-soon-cover");
     const countdown = document.getElementById("countdown");
 
     function updateCountdown() {
       const now = new Date();
-      const diff = removeDate - now;
+      const diff = removeDate.getTime() - now.getTime();
 
       if (diff <= 0) {
         if (cover) cover.remove();
         return;
       }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdown.textContent =
+        days + "D " +
+        hours.toString().padStart(2, "0") + "H " +
+        minutes.toString().padStart(2, "0") + "M " +
+        seconds.toString().padStart(2, "0") + "S";
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+</script>
 <div id="regular-days-card">
   <div class="regular-days-label">Regular School Days Left</div>
   <div id="regular-days-number">Loading...</div>
