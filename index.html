@@ -260,7 +260,38 @@ p,
   const lastDay = new Date("2026-06-04T09:40:00");
   return lastDay;
 }
-function updateFireworks(daysLeft) {
+async function updateFireworks() {
+  const container = document.getElementById("firework-icons");
+  if (!container) return;
+
+  const FIREWORK_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/fireworksDimmed.json";
+
+  let dimmed = 0;
+
+  try {
+    const response = await fetch(FIREWORK_URL + "?t=" + Date.now());
+    dimmed = await response.json();
+  } catch {
+    dimmed = 0;
+  }
+
+  const total = 14;
+  dimmed = Math.min(Math.max(dimmed || 0, 0), total);
+
+  container.innerHTML = "";
+
+  for (let i = 1; i <= total; i++) {
+    const fw = document.createElement("span");
+    fw.className = "firework";
+
+    if (i <= dimmed) {
+      fw.classList.add("dimmed");
+    }
+
+    fw.textContent = "✹";
+    container.appendChild(fw);
+  }
+}
   const container = document.getElementById("firework-icons");
   if (!container) return;
 
@@ -296,7 +327,6 @@ function updateFireworks(daysLeft) {
       const diff = lastSchoolDay - now;
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      updateFireworks(days);  //
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -313,6 +343,9 @@ function updateFireworks(daysLeft) {
     }
 
     updateCounter();
+
+updateFireworks();
+setInterval(updateFireworks, 5000);
   </script>
 <div id="coming-soon-cover">
   <div class="coming-soon-box">
