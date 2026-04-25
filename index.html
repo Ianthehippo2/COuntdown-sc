@@ -223,7 +223,9 @@ p,
 #live-status.offline {
   background: #23647D;
 }
-
+#watch-btn {
+  display: none;
+}
 </style>
 </head>
 <body>
@@ -238,7 +240,7 @@ p,
   <div id="counter">Loading...</div>
   <p>Counting Down to the Last Day of Schooled June 4</p>
   <div id="live-status" class="offline">● OFFLINE</div>
-  <button class="watch-live" onclick="watchLive()">WATCH LIVE</button>
+  <button id="watch-btn" class="watch-live" onclick="watchLive()">WATCH LIVE</button>
 
   <script>
     const validSchoolDays = [
@@ -584,18 +586,17 @@ function updateFireworks(daysLeft) {
     try {
       const response = await fetch(STATUS_URL + "?t=" + Date.now());
       const isLive = await response.json();
+const watchBtn = document.getElementById("watch-btn");
 
-      if (isLive === true) {
-        box.textContent = "● LIVE NOW";
-        box.className = "live";
-      } else {
-        box.textContent = "● OFFLINE";
-        box.className = "offline";
-      }
-    } catch {
-      box.textContent = "● OFFLINE";
-      box.className = "offline";
-    }
+if (isLive === true) {
+  box.textContent = "● LIVE NOW";
+  box.className = "live";
+  if (watchBtn) watchBtn.style.display = "inline-block";
+} else {
+  box.textContent = "● OFFLINE";
+  box.className = "offline";
+  if (watchBtn) watchBtn.style.display = "none";
+}
   }
 
   updateLiveStatus();
