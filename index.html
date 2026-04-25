@@ -203,6 +203,26 @@ p,
   position: relative;
   z-index: 2;
 }
+#live-status {
+  margin-top: 20px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: white;
+  background: #23647D;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  position: relative;
+  z-index: 2;
+}
+
+#live-status.live {
+  background: red;
+}
+
+#live-status.offline {
+  background: #23647D;
+}
 
 </style>
 </head>
@@ -217,6 +237,7 @@ p,
   <div id="school-days">Loading school days...</div>
   <div id="counter">Loading...</div>
   <p>Counting Down to the Last Day of Schooled June 4</p>
+  <div id="live-status" class="offline">● OFFLINE</div>
   <button class="watch-live" onclick="watchLive()">WATCH LIVE</button>
 
   <script>
@@ -551,6 +572,32 @@ function updateFireworks(daysLeft) {
     createCloud();
   }
 })();
+<script>
+  const STATUS_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/";
+
+  async function updateLiveStatus() {
+    const box = document.getElementById("live-status");
+    if (!box) return;
+
+    try {
+      const response = await fetch(STATUS_URL + "?t=" + Date.now());
+      const isLive = await response.json();
+
+      if (isLive === true) {
+        box.textContent = "● LIVE NOW";
+        box.className = "live";
+      } else {
+        box.textContent = "● OFFLINE";
+        box.className = "offline";
+      }
+    } catch {
+      box.textContent = "● OFFLINE";
+      box.className = "offline";
+    }
+  }
+
+  updateLiveStatus();
+  setInterval(updateLiveStatus, 5000);
 </script>
 </body>
 </html>
