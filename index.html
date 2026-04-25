@@ -586,7 +586,7 @@ function updateFireworks(daysLeft) {
     try {
       const response = await fetch(STATUS_URL + "?t=" + Date.now());
       const isLive = await response.json();
-const watchBtn = document.getElementById("watch-btn");
+      const watchBtn = document.getElementById("watch-btn");
 
 if (isLive === true) {
   box.textContent = "● LIVE NOW";
@@ -598,7 +598,6 @@ if (isLive === true) {
   if (watchBtn) watchBtn.style.display = "none";
 }
   }
-
   updateLiveStatus();
   setInterval(updateLiveStatus, 5000);
 </script>
