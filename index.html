@@ -188,8 +188,10 @@
 #coming-soon-cover {
   z-index: 9999999;
 }
+body.lock-scroll {
+  overflow: hidden;
+}
 
-/* 👇 ADD THIS RIGHT HERE */
 #main-logo,
 h1,
 #school-days,
@@ -345,18 +347,22 @@ p,
 
 <script>
   (function () {
-    const removeDate = new Date("2026-05-04T09:40:00-04:00");
+  const removeDate = new Date("2026-05-04T09:40:00-04:00");
+
+  document.body.classList.add("lock-scroll");
     const cover = document.getElementById("coming-soon-cover");
     const countdown = document.getElementById("countdown");
+    
 
     function updateCountdown() {
       const now = new Date();
       const diff = removeDate.getTime() - now.getTime();
 
       if (diff <= 0) {
-        if (cover) cover.remove();
-        return;
-      }
+  if (cover) cover.remove();
+  document.body.classList.remove("lock-scroll");
+  return;
+}
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
