@@ -398,6 +398,8 @@
 <script>
 (function () {
   const container = document.getElementById("cloud-container");
+  if (!container) return;
+
   const sizes = ["small", "medium", "large"];
 
   function createCloud() {
@@ -407,16 +409,15 @@
     cloud.classList.add("cloud", size);
 
     cloud.style.top = Math.random() * 80 + "%";
-    cloud.style.left = "-200px";
-    cloud.style.animationDuration = (20 + Math.random() * 40) + "s";
-
-    cloud.style.opacity = 0.5 + Math.random() * 0.5;
-    cloud.style.transform = `scale(${0.8 + Math.random() * 0.8})`;
+    cloud.style.left = "-250px";
+    cloud.style.animationDuration = (25 + Math.random() * 45) + "s";
+    cloud.style.animationDelay = Math.random() * 20 + "s";
+    cloud.style.opacity = 0.5 + Math.random() * 0.4;
 
     container.appendChild(cloud);
   }
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 20; i++) {
     createCloud();
   }
 })();
