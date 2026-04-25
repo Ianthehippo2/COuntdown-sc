@@ -106,10 +106,10 @@
     }
     @keyframes moveCloud {
   from {
-    transform: translateX(-200px);
+    transform: translateX(-350px);
   }
   to {
-    transform: translateX(110vw);
+    transform: translateX(calc(100vw + 350px));
   }
 }
     @media (max-width: 768px) {
@@ -471,7 +471,7 @@ p,
     cloud.classList.add("cloud", size);
 
     cloud.style.top = Math.random() * 80 + "%";
-    cloud.style.left = "-250px";
+    cloud.style.left = "-350px";
     cloud.style.animationDuration = (25 + Math.random() * 45) + "s";
     cloud.style.animationDelay = Math.random() * 20 + "s";
     cloud.style.opacity = 0.5 + Math.random() * 0.4;
