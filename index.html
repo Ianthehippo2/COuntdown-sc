@@ -103,6 +103,14 @@
         transform: translateY(0);
       }
     }
+    @keyframes moveCloud {
+  from {
+    transform: translateX(-200px);
+  }
+  to {
+    transform: translateX(110vw);
+  }
+}
     @media (max-width: 768px) {
       h1 {
         font-size: 2.5rem;
@@ -284,6 +292,7 @@
   border-radius: 50%;
   opacity: 0.8;
   filter: blur(2px);
+  animation: moveCloud linear infinite;
 }
 
 .cloud::before,
@@ -441,8 +450,9 @@ body > *:not(#cloud-container) {
 
     cloud.classList.add("cloud", size);
 
-    cloud.style.top = Math.random() * 100 + "%";
-    cloud.style.left = Math.random() * 100 + "%";
+    cloud.style.top = Math.random() * 80 + "%";
+    cloud.style.left = "-200px";
+    cloud.style.animationDuration = (20 + Math.random() * 40) + "s";
 
     cloud.style.opacity = 0.5 + Math.random() * 0.5;
     cloud.style.transform = `scale(${0.8 + Math.random() * 0.8})`;
