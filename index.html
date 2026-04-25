@@ -581,23 +581,30 @@ function updateFireworks(daysLeft) {
 
   async function updateLiveStatus() {
     const box = document.getElementById("live-status");
+    const watchBtn = document.getElementById("watch-btn");
+
     if (!box) return;
 
     try {
       const response = await fetch(STATUS_URL + "?t=" + Date.now());
       const isLive = await response.json();
-      const watchBtn = document.getElementById("watch-btn");
 
-if (isLive === true) {
-  box.textContent = "● LIVE NOW";
-  box.className = "live";
-  if (watchBtn) watchBtn.style.display = "inline-block";
-} else {
-  box.textContent = "● OFFLINE";
-  box.className = "offline";
-  if (watchBtn) watchBtn.style.display = "none";
-}
+      if (isLive === true) {
+        box.textContent = "● LIVE NOW";
+        box.className = "live";
+        if (watchBtn) watchBtn.style.display = "inline-block";
+      } else {
+        box.textContent = "● OFFLINE";
+        box.className = "offline";
+        if (watchBtn) watchBtn.style.display = "none";
+      }
+    } catch (error) {
+      box.textContent = "● OFFLINE";
+      box.className = "offline";
+      if (watchBtn) watchBtn.style.display = "none";
+    }
   }
+
   updateLiveStatus();
   setInterval(updateLiveStatus, 5000);
 </script>
