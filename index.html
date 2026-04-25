@@ -292,26 +292,6 @@ async function updateFireworks() {
     container.appendChild(fw);
   }
 }
-  const container = document.getElementById("firework-icons");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  const total = 14;
-  const active = Math.min(Math.max(daysLeft, 0), total);
-
-  for (let i = 1; i <= total; i++) {
-    const fw = document.createElement("span");
-    fw.className = "firework";
-
-    if (i > active) {
-      fw.classList.add("dimmed");
-    }
-
-    fw.textContent = "✹";
-    container.appendChild(fw);
-  }
-}
     function updateCounter() {
       const remainingSchoolDays = countRemainingSchoolDays();
       document.getElementById("school-days").textContent = `${remainingSchoolDays} School Days Remaining`;
