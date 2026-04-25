@@ -181,9 +181,12 @@
 .cloud.large::before { width: 100px; height: 100px; top: -30px; left: 40px; }
 .cloud.large::after { width: 110px; height: 110px; top: -35px; right: 40px; }
 
-body > *:not(#cloud-container) {
-  position: relative;
-  z-index: 1;
+#cloud-container {
+  z-index: 0;
+}
+
+#coming-soon-cover {
+  z-index: 9999999;
 }
 
 </style>
