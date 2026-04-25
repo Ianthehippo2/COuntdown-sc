@@ -368,5 +368,33 @@
     setInterval(updateRegularSchoolDays, 1000);
   })();
 </script>
+
+  <img 
+  src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/SPO.png" 
+  id="sponsor-logo"
+/>
+
+<style>
+  #sponsor-logo {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    width: 500px; /* big */
+    max-width: 90%;
+
+    filter: drop-shadow(0 0 20px rgba(0,0,0,0.6));
+    animation: fade-in 1s ease-in-out;
+  }
+
+  @media (max-width: 768px) {
+    #sponsor-logo {
+      width: 280px;
+      bottom: 10px;
+    }
+  }
+</style>
+
 </body>
 </html>
