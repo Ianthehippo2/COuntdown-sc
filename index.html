@@ -237,7 +237,27 @@ p,
   const lastDay = new Date("2026-06-04T09:40:00");
   return lastDay;
 }
+function updateFireworks(daysLeft) {
+  const container = document.getElementById("firework-icons");
+  if (!container) return;
 
+  container.innerHTML = "";
+
+  const total = 14;
+  const active = Math.min(Math.max(daysLeft, 0), total);
+
+  for (let i = 1; i <= total; i++) {
+    const fw = document.createElement("span");
+    fw.className = "firework";
+
+    if (i > active) {
+      fw.classList.add("dimmed");
+    }
+
+    fw.textContent = "✹";
+    container.appendChild(fw);
+  }
+}
     function updateCounter() {
       const remainingSchoolDays = countRemainingSchoolDays();
       document.getElementById("school-days").textContent = `${remainingSchoolDays} School Days Remaining`;
@@ -253,6 +273,7 @@ p,
       const diff = lastSchoolDay - now;
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      updateFireworks(days);  //
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
@@ -384,6 +405,10 @@ p,
   <div class="regular-days-label">Regular School Days Left</div>
   <div id="regular-days-number">Loading...</div>
 </div>
+  <div id="firework-tracker">
+  <div class="firework-title">14 Day Firework Countdown</div>
+  <div id="firework-icons"></div>
+</div>
 <img 
   src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/SPO.png" 
   id="sponsor-logo"
@@ -401,6 +426,43 @@ p,
     text-align: center;
     opacity: 0.75;
   }
+  #firework-tracker {
+  margin: 15px 0 20px;
+  padding: 18px 22px;
+  border-radius: 18px;
+  background: rgba(137, 207, 240, 0.75);
+  border: 3px solid #fff;
+  box-shadow: 0 10px 30px rgba(255,255,255,0.7);
+  text-align: center;
+}
+
+.firework-title {
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+#firework-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.firework {
+  font-size: 2rem;
+  color: #0288D1;
+  filter: drop-shadow(0 0 8px rgba(2,136,209,0.9));
+  transition: all 0.4s ease;
+}
+
+.firework.dimmed {
+  opacity: 0.15;
+  filter: grayscale(1);
+  transform: scale(0.8);
+}
 
   .regular-days-label {
     font-size: 1rem;
