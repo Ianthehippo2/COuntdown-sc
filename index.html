@@ -104,6 +104,20 @@
         transform: translateY(0);
       }
     }
+    @keyframes launchShake {
+  0% { transform: translateX(0) scale(1); }
+  20% { transform: translateX(-4px) scale(1.04); }
+  40% { transform: translateX(4px) scale(1.08); }
+  60% { transform: translateX(-4px) scale(1.04); }
+  80% { transform: translateX(4px) scale(1.08); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+#counter.launch-mode {
+  background: linear-gradient(135deg, #ff0000, #8B0000);
+  animation: launchShake 0.45s infinite;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+}
     @keyframes moveCloud {
   from {
     transform: translateX(-350px);
@@ -325,7 +339,13 @@ async function updateFireworks() {
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+const counterBox = document.getElementById("counter");
 
+if (diff <= 60000) {
+  counterBox.classList.add("launch-mode");
+} else {
+  counterBox.classList.remove("launch-mode");
+}
       let parts = [];
 
 if (days > 0) {
