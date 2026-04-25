@@ -572,8 +572,10 @@ function updateFireworks(daysLeft) {
     createCloud();
   }
 })();
+</script>
+
 <script>
-  const STATUS_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/";
+  const STATUS_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/live.json";
 
   async function updateLiveStatus() {
     const box = document.getElementById("live-status");
