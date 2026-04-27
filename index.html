@@ -496,12 +496,19 @@ setInterval(updateFireworks, 5000);
   <div id="firework-icons"></div>
 </div>
   
-  <div id="music-card">
-  <div id="music-label">NOW PLAYING</div>
+  <div id="music-card" class="music-empty">
+  <div class="music-topline">Presented by Apple Music</div>
+
   <img id="music-cover" src="" alt="Album Cover">
-  <div>
-    <div id="music-title">No song playing</div>
+
+  <div id="music-info">
+    <div id="music-label">NOW PLAYING</div>
+    <div id="music-title">Nothing Playing</div>
     <div id="music-artist">Waiting for Spotify...</div>
+
+    <div id="equalizer">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
   </div>
 </div>
   
@@ -585,46 +592,113 @@ setInterval(updateFireworks, 5000);
   filter: drop-shadow(0 0 20px rgba(0,0,0,0.6));
 }
 #music-card {
-  margin: 18px 0 25px;
-  padding: 16px;
-  width: min(90%, 540px);
-  border-radius: 24px;
-  background: rgba(255,255,255,0.25);
+  margin: 28px 0 28px;
+  padding: 18px;
+  width: min(92%, 580px);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.32), rgba(255,255,255,0.12));
   border: 2px solid rgba(255,255,255,0.8);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.28);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   text-align: left;
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(18px);
   position: relative;
   z-index: 2;
+  overflow: hidden;
 }
 
-#music-label {
+.music-topline {
   position: absolute;
-  top: -24px;
-  left: 18px;
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  top: 10px;
+  right: 18px;
+  font-size: 0.72rem;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 
 #music-cover {
-  width: 82px;
-  height: 82px;
-  border-radius: 18px;
+  width: 92px;
+  height: 92px;
+  border-radius: 22px;
   object-fit: cover;
-  background: #23647D;
+  background: linear-gradient(135deg, #23647D, #89CFF0);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+}
+
+#music-info {
+  flex: 1;
+  min-width: 0;
+}
+
+#music-label {
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  opacity: 0.85;
+  margin-bottom: 5px;
 }
 
 #music-title {
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   color: white;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #music-artist {
   font-size: 1rem;
   opacity: 0.85;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#equalizer {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  height: 24px;
+  margin-top: 12px;
+}
+
+#equalizer span {
+  width: 5px;
+  height: 8px;
+  border-radius: 999px;
+  background: white;
+  animation: equalize 0.8s infinite ease-in-out;
+}
+
+#equalizer span:nth-child(2) { animation-delay: 0.1s; }
+#equalizer span:nth-child(3) { animation-delay: 0.2s; }
+#equalizer span:nth-child(4) { animation-delay: 0.3s; }
+#equalizer span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes equalize {
+  0%, 100% { height: 7px; opacity: 0.55; }
+  50% { height: 24px; opacity: 1; }
+}
+
+#music-card.music-empty {
+  justify-content: center;
+  text-align: center;
+}
+
+#music-card.music-empty #music-cover {
+  display: none;
+}
+
+#music-card.music-empty #music-info {
+  flex: none;
+}
+
+#music-card.music-empty #equalizer {
+  display: none;
 }
 </style>
 
@@ -727,21 +801,33 @@ setInterval(updateFireworks, 5000);
   const MUSIC_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/music.json";
 
   async function updateMusicCard() {
+    const card = document.getElementById("music-card");
+    const title = document.getElementById("music-title");
+    const artist = document.getElementById("music-artist");
+    const cover = document.getElementById("music-cover");
+
     try {
       const response = await fetch(MUSIC_URL + "?t=" + Date.now());
       const music = await response.json();
 
       if (!music || music.playing === false) {
-        document.getElementById("music-title").textContent = "Nothing Playing";
-        document.getElementById("music-artist").textContent = "";
-        document.getElementById("music-cover").src = "";
+        card.classList.add("music-empty");
+        title.textContent = "Nothing Playing";
+        artist.textContent = "Start Spotify to update this live";
+        cover.src = "";
         return;
       }
 
-      document.getElementById("music-title").textContent = music.title;
-      document.getElementById("music-artist").textContent = music.artist;
-      document.getElementById("music-cover").src = music.cover;
-    } catch {}
+      card.classList.remove("music-empty");
+      title.textContent = music.title || "Unknown Song";
+      artist.textContent = music.artist || "Unknown Artist";
+      cover.src = music.cover || "";
+    } catch {
+      card.classList.add("music-empty");
+      title.textContent = "Nothing Playing";
+      artist.textContent = "Music status unavailable";
+      cover.src = "";
+    }
   }
 
   updateMusicCard();
