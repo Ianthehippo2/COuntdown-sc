@@ -495,6 +495,16 @@ setInterval(updateFireworks, 5000);
   <div class="firework-title">Final Countdown Firework Counter</div>
   <div id="firework-icons"></div>
 </div>
+  
+  <div id="music-card">
+  <div id="music-label">NOW PLAYING</div>
+  <img id="music-cover" src="" alt="Album Cover">
+  <div>
+    <div id="music-title">No song playing</div>
+    <div id="music-artist">Waiting for Spotify...</div>
+  </div>
+</div>
+  
 <img 
   src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/SPO.png" 
   id="sponsor-logo"
@@ -573,6 +583,48 @@ setInterval(updateFireworks, 5000);
   margin-right: auto;
 
   filter: drop-shadow(0 0 20px rgba(0,0,0,0.6));
+}
+#music-card {
+  margin: 18px 0 25px;
+  padding: 16px;
+  width: min(90%, 540px);
+  border-radius: 24px;
+  background: rgba(255,255,255,0.25);
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  backdrop-filter: blur(14px);
+  position: relative;
+  z-index: 2;
+}
+
+#music-label {
+  position: absolute;
+  top: -24px;
+  left: 18px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+#music-cover {
+  width: 82px;
+  height: 82px;
+  border-radius: 18px;
+  object-fit: cover;
+  background: #23647D;
+}
+
+#music-title {
+  font-size: 1.4rem;
+  color: white;
+}
+
+#music-artist {
+  font-size: 1rem;
+  opacity: 0.85;
 }
 </style>
 
@@ -670,6 +722,30 @@ setInterval(updateFireworks, 5000);
 
   updateLiveStatus();
   setInterval(updateLiveStatus, 5000);
+</script>
+  <script>
+  const MUSIC_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/music.json";
+
+  async function updateMusicCard() {
+    try {
+      const response = await fetch(MUSIC_URL + "?t=" + Date.now());
+      const music = await response.json();
+
+      if (!music || music.playing === false) {
+        document.getElementById("music-title").textContent = "Nothing Playing";
+        document.getElementById("music-artist").textContent = "";
+        document.getElementById("music-cover").src = "";
+        return;
+      }
+
+      document.getElementById("music-title").textContent = music.title;
+      document.getElementById("music-artist").textContent = music.artist;
+      document.getElementById("music-cover").src = music.cover;
+    } catch {}
+  }
+
+  updateMusicCard();
+  setInterval(updateMusicCard, 5000);
 </script>
 </body>
 </html>
