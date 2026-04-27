@@ -773,7 +773,6 @@ setInterval(updateFireworks, 5000);
     const box = document.getElementById("live-status");
     const watchBtn = document.getElementById("watch-btn");
     const musicCard = document.getElementById("music-card");
-if (musicCard) musicCard.style.display = "flex";
 
     if (!box) return;
 
@@ -785,17 +784,18 @@ if (musicCard) musicCard.style.display = "flex";
         box.textContent = "● LIVE NOW";
         box.className = "live";
         if (watchBtn) watchBtn.style.display = "inline-block";
+        if (musicCard) musicCard.style.display = "flex";
       } else {
         box.textContent = "● OFFLINE";
         box.className = "offline";
         if (watchBtn) watchBtn.style.display = "none";
-        const musicCard = document.getElementById("music-card");
-  if (musicCard) musicCard.style.display = "none";
+        if (musicCard) musicCard.style.display = "none";
       }
     } catch (error) {
       box.textContent = "● OFFLINE";
       box.className = "offline";
       if (watchBtn) watchBtn.style.display = "none";
+      if (musicCard) musicCard.style.display = "none";
     }
   }
 
