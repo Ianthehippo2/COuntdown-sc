@@ -81,27 +81,51 @@ body.thursday-mode .cloud {
   background: rgba(200, 200, 255, 0.6);
 }
 
-/* ⚡ lightning flash overlay */
 #lightning {
   position: fixed;
   inset: 0;
-  background: white;
-  opacity: 0;
   pointer-events: none;
   z-index: 1;
+  overflow: hidden;
 }
 
-@keyframes lightningFlash {
-  0% { opacity: 0; }
-  10% { opacity: 0.9; }
-  20% { opacity: 0; }
-  30% { opacity: 0.7; }
-  40% { opacity: 0; }
-  100% { opacity: 0; }
+.lightning-bolt {
+  position: absolute;
+  top: -80px;
+  width: 5px;
+  height: 260px;
+  background: linear-gradient(to bottom, #d7b7ff, #ffffff, transparent);
+  clip-path: polygon(45% 0%, 70% 38%, 55% 38%, 85% 100%, 30% 48%, 48% 48%);
+  opacity: 0;
+  filter: drop-shadow(0 0 18px #d7b7ff);
+  animation: boltStrike 0.45s ease-out;
 }
 
-body.thursday-mode #lightning.flash {
-  animation: lightningFlash 0.6s ease-out;
+@keyframes boltStrike {
+  0% { opacity: 0; transform: translateY(-40px) scaleY(0.6); }
+  20% { opacity: 1; }
+  70% { opacity: 0.85; }
+  100% { opacity: 0; transform: translateY(80px) scaleY(1); }
+}
+
+#thursday-bg-text {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(4rem, 12vw, 12rem);
+  color: rgba(210, 190, 230, 0.18);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+}
+
+body.thursday-mode #thursday-bg-text {
+  display: flex;
 }
     button:hover {
       background: #fff;
@@ -291,6 +315,7 @@ p,
 <body>
   <div id="cloud-container"></div>
   <div id="lightning"></div>
+  <div id="thursday-bg-text">Thunderstruck Thursday</div>
   
   <img 
   src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/KKC1.png" 
@@ -1110,15 +1135,23 @@ if (current) {
     function triggerLightning() {
       if (!lightning) return;
 
-      lightning.classList.remove("flash");
-      void lightning.offsetWidth;
-      lightning.classList.add("flash");
+      const bolt = document.createElement("div");
+      bolt.className = "lightning-bolt";
+      bolt.style.left = Math.random() * 90 + 5 + "%";
+      bolt.style.height = 180 + Math.random() * 220 + "px";
+      bolt.style.transform = "rotate(" + (-15 + Math.random() * 30) + "deg)";
 
-      const next = 2000 + Math.random() * 5000;
+      lightning.appendChild(bolt);
+
+      setTimeout(() => {
+        bolt.remove();
+      }, 600);
+
+      const next = 1200 + Math.random() * 3500;
       setTimeout(triggerLightning, next);
     }
 
-    setTimeout(triggerLightning, 1500);
+    setTimeout(triggerLightning, 1200);
   }
 })();
 </script>
