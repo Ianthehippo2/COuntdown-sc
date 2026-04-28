@@ -379,6 +379,99 @@ p,
 #watch-btn {
   display: none;
 }
+#watch-popup {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(10, 10, 20, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 99999999;
+}
+
+.watch-popup-box {
+  width: min(92%, 720px);
+  padding: 30px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12));
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+  text-align: center;
+  position: relative;
+}
+
+.watch-popup-box h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin-bottom: 8px;
+}
+
+.watch-subtitle {
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.watch-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  padding: 0;
+  margin: 0;
+  font-size: 1.8rem;
+  color: white;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.55);
+}
+
+.watch-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.watch-option {
+  padding: 22px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.22);
+}
+
+.watch-logo {
+  width: 120px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.watch-name {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.watch-option button {
+  margin-top: 5px;
+  color: white;
+  background: linear-gradient(135deg, #4FC3F7, #0288D1);
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.75);
+}
+
+.watch-option button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 22px rgba(79,195,247,0.85);
+}
+
+@media (max-width: 650px) {
+  .watch-options {
+    grid-template-columns: 1fr;
+  }
+}    
 </style>
 </head>
 <body>
@@ -494,9 +587,12 @@ document.getElementById("counter").textContent = parts.join(" ");
     }
 
     function watchLive() {
-      alert("Redirecting to live stream...");
-      window.location.href = "https://www.twitch.tv/kaicenat";
-    }
+  document.getElementById("watch-popup").style.display = "flex";
+}
+
+function closeWatchPopup() {
+  document.getElementById("watch-popup").style.display = "none";
+}
 
     updateCounter();
 
@@ -1242,6 +1338,31 @@ if (current) {
   }
 })();
 </script>
-  
+<div id="watch-popup">
+  <div class="watch-popup-box">
+    <button class="watch-close" onclick="closeWatchPopup()">×</button>
+
+    <h2>Where would you like to watch?</h2>
+    <p class="watch-subtitle">Choose your streaming option below.</p>
+
+    <div class="watch-options">
+      <div class="watch-option">
+        <img src="SCHOOLED_LOGO_LINK_HERE" class="watch-logo" alt="Schooled">
+        <div class="watch-name">Watch Via Schooled</div>
+        <button onclick="window.location.href='SCHOOLED_STREAM_LINK_HERE'">
+          Watch Now
+        </button>
+      </div>
+
+      <div class="watch-option">
+        <img src="APPLETV_LOGO_LINK_HERE" class="watch-logo" alt="AppleTV">
+        <div class="watch-name">Watch Via AppleTV</div>
+        <button onclick="window.location.href='APPLETV_STREAM_LINK_HERE'">
+          Watch Now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>  
 </body>
 </html>
