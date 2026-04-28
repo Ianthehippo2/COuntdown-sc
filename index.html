@@ -639,25 +639,38 @@ setInterval(updateFireworks, 5000);
 />
 <style>
   #regular-days-card {
-    margin: 10px 0 20px;
-    padding: 18px 28px;
-    border-radius: 18px;
-    background: #89CFF0;
-    border: 3px solid #fff;
-    box-shadow: 0 10px 30px #fff;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    text-align: center;
-    opacity: 0.75;
-  }
-  #firework-tracker {
-  margin: 15px 0 20px;
-  padding: 18px 22px;
-  border-radius: 18px;
-  background: rgba(137, 207, 240, 0.75);
-  border: 3px solid #fff;
-  box-shadow: 0 10px 30px rgba(255,255,255,0.7);
+  margin: 20px 0 25px;
+  padding: 20px 28px;
+  border-radius: 28px;
+
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12));
+  border: 2px solid rgba(255,255,255,0.8);
+
+  box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
   text-align: center;
+  position: relative;
+  z-index: 2;
+}
+  #firework-tracker {
+  margin: 20px 0 25px;
+  padding: 20px 24px;
+  border-radius: 28px;
+
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12));
+  border: 2px solid rgba(255,255,255,0.8);
+
+  box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .firework-title {
