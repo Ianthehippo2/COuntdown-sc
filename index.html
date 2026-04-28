@@ -511,8 +511,16 @@ setInterval(updateFireworks, 5000);
     </div>
   </div>
 </div>
-  
-<img 
+
+  <div id="schedule-card">
+  <div class="schedule-topline">Today’s Schedule</div>
+  <div id="schedule-day">Loading Day...</div>
+  <div id="current-period">Loading Period...</div>
+  <div id="period-countdown">Loading Time Left...</div>
+  <div id="daily-schedule"></div>
+</div>  
+
+  <img 
   src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/SPO.png" 
   id="sponsor-logo"
 />
@@ -701,6 +709,64 @@ setInterval(updateFireworks, 5000);
 #music-card.music-empty #equalizer {
   display: none;
 }
+#schedule-card {
+  width: min(92%, 620px);
+  margin: 20px 0 30px;
+  padding: 22px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12));
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+  backdrop-filter: blur(18px);
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.schedule-topline {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
+
+#schedule-day {
+  font-size: 1.7rem;
+  margin-bottom: 6px;
+}
+
+#current-period {
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+
+#period-countdown {
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+  opacity: 0.9;
+}
+
+.schedule-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.16);
+  font-size: 0.95rem;
+}
+
+.schedule-row.active {
+  background: linear-gradient(135deg, #ff0000, #8B0000);
+  box-shadow: 0 0 22px rgba(255,0,0,0.75);
+  transform: scale(1.03);
+}
+
+.schedule-time {
+  opacity: 0.9;
+}
 </style>
 
 <script>
@@ -837,6 +903,146 @@ setInterval(updateFireworks, 5000);
 
   updateMusicCard();
   setInterval(updateMusicCard, 5000);
+    <script>
+  const LETTER_DAY_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/letterDay.json";
+
+  const schedules = {
+    A: [
+      ["Period 1", "Study Hall", "08:00", "08:50"],
+      ["Period 2", "History", "08:54", "09:39"],
+      ["Period 3", "Org Lab", "09:43", "10:28"],
+      ["Period 4", "Study Hall", "10:32", "11:17"],
+      ["Lunch and Learn", "Lunch and Learn", "11:17", "12:18"],
+      ["Period 5", "Competitive Activities", "12:22", "13:07"],
+      ["Period 6", "English", "13:11", "13:56"],
+      ["Period 7", "Wood Tech", "14:00", "14:45"]
+    ],
+    B: [
+      ["Period 1", "Study Hall", "08:00", "08:50"],
+      ["Period 2", "History", "08:54", "09:39"],
+      ["Period 3", "Study Hall", "09:43", "10:28"],
+      ["Period 4", "Study Hall", "10:32", "11:17"],
+      ["Lunch and Learn", "Lunch and Learn", "11:17", "12:18"],
+      ["Period 5", "Org Lab", "12:22", "13:07"],
+      ["Period 6", "English", "13:11", "13:56"],
+      ["Period 7", "Wood Tech", "14:00", "14:45"]
+    ],
+    C: [
+      ["Period 1", "Study Hall", "08:00", "08:50"],
+      ["Period 2", "History", "08:54", "09:39"],
+      ["Period 3", "Org Lab", "09:43", "10:28"],
+      ["Period 4", "Study Hall", "10:32", "11:17"],
+      ["Lunch and Learn", "Lunch and Learn", "11:17", "12:18"],
+      ["Period 5", "Study Hall", "12:22", "13:07"],
+      ["Period 6", "English", "13:11", "13:56"],
+      ["Period 7", "Wood Tech", "14:00", "14:45"]
+    ],
+    D: [
+      ["Period 1", "Study Hall", "08:00", "08:50"],
+      ["Period 2", "History", "08:54", "09:39"],
+      ["Period 3", "Study Hall", "09:43", "10:28"],
+      ["Period 4", "Org Lab", "10:32", "11:17"],
+      ["Lunch and Learn", "Lunch and Learn", "11:17", "12:18"],
+      ["Period 5", "Org Lab", "12:22", "13:07"],
+      ["Period 6", "English", "13:11", "13:56"],
+      ["Period 7", "Wood Tech", "14:00", "14:45"]
+    ],
+    E: [
+      ["Period 1", "Study Hall", "08:00", "08:50"],
+      ["Period 2", "History", "08:54", "09:39"],
+      ["Period 3", "Org Lab", "09:43", "10:28"],
+      ["Period 4", "Study Hall", "10:32", "11:17"],
+      ["Lunch and Learn", "Lunch and Learn", "11:17", "12:18"],
+      ["Period 5", "Competitive Activities", "12:22", "13:07"],
+      ["Period 6", "English", "13:11", "13:56"],
+      ["Period 7", "Wood Tech", "14:00", "14:45"]
+    ],
+    F: [
+      ["Period 1", "Study Hall", "08:00", "08:50"],
+      ["Period 2", "History", "08:54", "09:39"],
+      ["Period 3", "Study Hall", "09:43", "10:28"],
+      ["Period 4", "Study Hall", "10:32", "11:17"],
+      ["Lunch and Learn", "Lunch and Learn", "11:17", "12:18"],
+      ["Period 5", "Org Lab", "12:22", "13:07"],
+      ["Period 6", "English", "13:11", "13:56"],
+      ["Period 7", "Wood Tech", "14:00", "14:45"]
+    ]
+  };
+
+  function timeToDate(time) {
+    const [h, m] = time.split(":").map(Number);
+    const d = new Date();
+    d.setHours(h, m, 0, 0);
+    return d;
+  }
+
+  function formatTimeLeft(ms) {
+    const mins = Math.floor(ms / 60000);
+    const secs = Math.floor((ms % 60000) / 1000);
+    return mins + "m " + secs.toString().padStart(2, "0") + "s left";
+  }
+
+  async function updateScheduleCard() {
+    let letterDay = "A";
+
+    try {
+      const response = await fetch(LETTER_DAY_URL + "?t=" + Date.now());
+      letterDay = await response.json() || "A";
+    } catch {}
+
+    const todaySchedule = schedules[letterDay] || schedules.A;
+    const now = new Date();
+
+    document.getElementById("schedule-day").textContent = letterDay + " Day";
+
+    let current = null;
+
+    todaySchedule.forEach(item => {
+      const start = timeToDate(item[2]);
+      const end = timeToDate(item[3]);
+
+      if (now >= start && now <= end) {
+        current = item;
+      }
+    });
+
+    if (current) {
+      const end = timeToDate(current[3]);
+      document.getElementById("current-period").textContent =
+        "Currently In: " + current[0] + " - " + current[1];
+
+      document.getElementById("period-countdown").textContent =
+        formatTimeLeft(end - now);
+    } else {
+      document.getElementById("current-period").textContent =
+        "Currently In: Passing Time / Outside Schedule";
+
+      document.getElementById("period-countdown").textContent =
+        "No active period right now";
+    }
+
+    const box = document.getElementById("daily-schedule");
+    box.innerHTML = "";
+
+    todaySchedule.forEach(item => {
+      const row = document.createElement("div");
+      row.className = "schedule-row";
+
+      if (current && item[0] === current[0] && item[1] === current[1]) {
+        row.classList.add("active");
+      }
+
+      row.innerHTML = `
+        <span>${item[0]} - ${item[1]}</span>
+        <span class="schedule-time">${item[2]} - ${item[3]}</span>
+      `;
+
+      box.appendChild(row);
+    });
+  }
+
+  updateScheduleCard();
+  setInterval(updateScheduleCard, 1000);
 </script>
 </body>
 </html>
