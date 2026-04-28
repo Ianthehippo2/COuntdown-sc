@@ -759,8 +759,8 @@ setInterval(updateFireworks, 5000);
 }
 
 .schedule-row.active {
-  background: linear-gradient(135deg, #ff0000, #8B0000);
-  box-shadow: 0 0 22px rgba(255,0,0,0.75);
+  background: linear-gradient(135deg, #4FC3F7, #0288D1);
+  box-shadow: 0 0 22px rgba(2,136,209,0.85);
   transform: scale(1.03);
 }
 
@@ -1007,20 +1007,40 @@ setInterval(updateFireworks, 5000);
       }
     });
 
-    if (current) {
-      const end = timeToDate(current[3]);
-      document.getElementById("current-period").textContent =
-        "Currently In: " + current[0] + " - " + current[1];
+    let nextPeriod = null;
 
-      document.getElementById("period-countdown").textContent =
-        formatTimeLeft(end - now);
-    } else {
-      document.getElementById("current-period").textContent =
-        "Currently In: Passing Time / Outside Schedule";
+for (let i = 0; i < todaySchedule.length; i++) {
+  const start = timeToDate(todaySchedule[i][2]);
 
-      document.getElementById("period-countdown").textContent =
-        "No active period right now";
-    }
+  if (now < start) {
+    nextPeriod = todaySchedule[i];
+    break;
+  }
+}
+
+if (current) {
+  const end = timeToDate(current[3]);
+
+  document.getElementById("current-period").textContent =
+    "Currently In: " + current[0] + " - " + current[1];
+
+  document.getElementById("period-countdown").textContent =
+    formatTimeLeft(end - now);
+} else if (nextPeriod) {
+  const start = timeToDate(nextPeriod[2]);
+
+  document.getElementById("current-period").textContent =
+    "Transitioning to: " + nextPeriod[0] + " - " + nextPeriod[1];
+
+  document.getElementById("period-countdown").textContent =
+    formatTimeLeft(start - now);
+} else {
+  document.getElementById("current-period").textContent =
+    "School Day Complete";
+
+  document.getElementById("period-countdown").textContent =
+    "No active period right now";
+}
 
     const box = document.getElementById("daily-schedule");
     box.innerHTML = "";
