@@ -72,6 +72,37 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: transform 0.2s, background-color 0.2s;
     }
+    /* 🌩️ THURSDAY MODE */
+body.thursday-mode {
+  background: linear-gradient(to bottom, #1a0033, #2d0055);
+}
+
+body.thursday-mode .cloud {
+  background: rgba(200, 200, 255, 0.6);
+}
+
+/* ⚡ lightning flash overlay */
+#lightning {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes lightningFlash {
+  0% { opacity: 0; }
+  10% { opacity: 0.9; }
+  20% { opacity: 0; }
+  30% { opacity: 0.7; }
+  40% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+body.thursday-mode #lightning.flash {
+  animation: lightningFlash 0.6s ease-out;
+}
     button:hover {
       background: #fff;
       color: #8B0000;
@@ -259,6 +290,7 @@ p,
 </head>
 <body>
   <div id="cloud-container"></div>
+  <div id="lightning"></div>
   
   <img 
   src="https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/KKC1.png" 
@@ -1065,5 +1097,31 @@ if (current) {
   updateScheduleCard();
   setInterval(updateScheduleCard, 1000);
 </script>
+  
+  <script>
+(function () {
+  const today = new Date().getDay(); // 4 = Thursday
+
+  if (today === 4) {
+    document.body.classList.add("thursday-mode");
+
+    const lightning = document.getElementById("lightning");
+
+    function triggerLightning() {
+      if (!lightning) return;
+
+      lightning.classList.remove("flash");
+      void lightning.offsetWidth;
+      lightning.classList.add("flash");
+
+      const next = 2000 + Math.random() * 5000;
+      setTimeout(triggerLightning, next);
+    }
+
+    setTimeout(triggerLightning, 1500);
+  }
+})();
+</script>
+  
 </body>
 </html>
