@@ -236,6 +236,67 @@ body.thursday-mode #thursday-bg-text {
   80% { transform: translateX(4px) scale(1.08); }
   100% { transform: translateX(0) scale(1); }
 }
+    #fake-player {
+  display: none;
+  width: min(92%, 760px);
+  aspect-ratio: 16 / 9;
+  margin-top: 22px;
+  background: #000;
+  border-radius: 24px;
+  border: 2px solid rgba(255,255,255,0.75);
+  box-shadow: 0 20px 55px rgba(0,0,0,0.45);
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.player-title {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.loading-spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 54px;
+  height: 54px;
+  border: 5px solid rgba(255,255,255,0.25);
+  border-top-color: #4FC3F7;
+  border-radius: 50%;
+  animation: spinLoader 1s linear infinite;
+}
+
+@keyframes spinLoader {
+  to { transform: rotate(360deg); }
+}
+
+.player-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#fake-player:hover .player-controls {
+  opacity: 1;
+}
+
+.player-controls span {
+  font-size: 1.2rem;
+}
 
 #counter.launch-mode {
   background: linear-gradient(135deg, #ff0000, #8B0000);
@@ -490,6 +551,19 @@ p,
   <div id="live-status" class="offline">● OFFLINE</div>
   <button id="watch-btn" class="watch-live" onclick="watchLive()">WATCH LIVE</button>
 
+  <div id="fake-player">
+  <div class="player-title">Schooled Official Broadcast</div>
+
+  <div class="loading-spinner"></div>
+
+  <div class="player-controls">
+    <span>⏯</span>
+    <span>🔊</span>
+    <span>⏱ LIVE</span>
+    <span>⛶</span>
+  </div>
+</div>
+  
   <script>
     const validSchoolDays = [
       "2026-04-30", "2026-05-01", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15",
@@ -1162,6 +1236,7 @@ padding-top: 25px;
     const box = document.getElementById("live-status");
     const watchBtn = document.getElementById("watch-btn");
     const musicCard = document.getElementById("music-card");
+    const fakePlayer = document.getElementById("fake-player");
 
     if (!box) return;
 
@@ -1174,17 +1249,20 @@ padding-top: 25px;
         box.className = "live";
         if (watchBtn) watchBtn.style.display = "inline-block";
         if (musicCard) musicCard.style.display = "flex";
+        if (fakePlayer) fakePlayer.style.display = "block";
       } else {
         box.textContent = "● OFFLINE";
         box.className = "offline";
         if (watchBtn) watchBtn.style.display = "none";
         if (musicCard) musicCard.style.display = "none";
+        if (fakePlayer) fakePlayer.style.display = "none";
       }
     } catch (error) {
       box.textContent = "● OFFLINE";
       box.className = "offline";
       if (watchBtn) watchBtn.style.display = "none";
       if (musicCard) musicCard.style.display = "none";
+      if (fakePlayer) fakePlayer.style.display = "none";
     }
   }
 
