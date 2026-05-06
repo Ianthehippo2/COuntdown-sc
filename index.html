@@ -1163,7 +1163,58 @@ padding-top: 25px;
     max-width: 700px;
     margin: 0 auto;
   }
-  
+  #site-notification {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  z-index: 999999999;
+}
+
+.notification-box {
+  width: min(92%, 650px);
+  padding: 35px 28px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12));
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.notification-box h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+#notification-message {
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.notification-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  padding: 0;
+  margin: 0;
+  font-size: 2rem;
+  color: white;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.55);
+  cursor: pointer;
+}
 </style>
 
 <script>
@@ -1509,6 +1560,42 @@ if (current) {
     setTimeout(triggerLightning, 1000);
   }
 })();
+const NOTIFICATION_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/notification.json";
+
+let notificationClosed = false;
+
+function closeSiteNotification() {
+  document.getElementById("site-notification").style.display = "none";
+  notificationClosed = true;
+}
+
+async function loadSiteNotification() {
+  try {
+    const response = await fetch(NOTIFICATION_URL + "?t=" + Date.now());
+    const notification = await response.json();
+
+    const popup = document.getElementById("site-notification");
+    const message = document.getElementById("notification-message");
+
+    if (!notification || notification.show !== true || !notification.text) {
+      popup.style.display = "none";
+      notificationClosed = false;
+      return;
+    }
+
+    message.textContent = notification.text;
+
+    if (!notificationClosed) {
+      popup.style.display = "flex";
+    }
+
+  } catch (error) {
+    console.error("Notification error:", error);
+  }
+}
+
+loadSiteNotification();
+setInterval(loadSiteNotification, 5000);
 </script>
 <div id="watch-popup">
   <div class="watch-popup-box">
@@ -1535,6 +1622,15 @@ if (current) {
       </div>
     </div>
   </div>
-</div>  
+</div>
+  <div id="site-notification">
+  <div class="notification-box">
+    <button class="notification-close" onclick="closeSiteNotification()">×</button>
+
+    <h2>Notification</h2>
+
+    <p id="notification-message">Loading...</p>
+  </div>
+</div>
 </body>
 </html>
