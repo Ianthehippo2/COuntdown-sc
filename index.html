@@ -1364,6 +1364,8 @@ padding-top: 25px;
    </script>
     <script>
   const LETTER_DAY_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/letterDay.json";
+  const LETTER_DAY_URL = "https://schooled-live-status-default-rtdb.firebaseio.com/letterDay.json";
+      
 
   const schedules = {
     A: [
@@ -1427,6 +1429,72 @@ padding-top: 25px;
       ["Period 7", "Wood Tech", "14:00", "14:45"]
     ]
   };
+      const examSchedules = {
+  "2026-06-01": {
+    day: "B Day Finals",
+    periods: [
+      ["2nd Period", "Regular Class", "08:00", "08:50"],
+      ["1st Period Final", "Final Unit Assessment", "08:54", "09:39"],
+      ["3rd Period", "Regular Class", "09:43", "10:28"],
+      ["4th Period Final", "Final Unit Assessment", "10:32", "11:17"],
+      ["Lunch / Learn", "Lunch", "11:19", "12:20"],
+      ["5th Period", "Regular Class", "12:22", "13:07"],
+      ["6th Period", "Regular Class", "13:11", "13:56"],
+      ["7th Period", "Regular Class", "14:00", "14:45"]
+    ]
+  },
+
+  "2026-06-02": {
+    day: "C Day Finals",
+    periods: [
+      ["1st Period", "Regular Class", "08:00", "08:50"],
+      ["2nd Period Final", "Final Unit Assessment", "08:54", "09:39"],
+      ["3rd Period", "Regular Class", "09:43", "10:28"],
+      ["5th Period Final", "Final Unit Assessment", "10:32", "11:17"],
+      ["Lunch / Learn", "Lunch", "11:19", "12:20"],
+      ["4th Period", "Regular Class", "12:22", "13:07"],
+      ["6th Period", "Regular Class", "13:11", "13:56"],
+      ["7th Period", "Regular Class", "14:00", "14:45"]
+    ]
+  },
+
+  "2026-06-03": {
+    day: "D Day Finals",
+    periods: [
+      ["1st Period", "Regular Class", "08:00", "08:50"],
+      ["3rd Period Final", "Final Unit Assessment", "08:54", "09:39"],
+      ["2nd Period", "Regular Class", "09:43", "10:28"],
+      ["6th Period Final", "Final Unit Assessment", "10:32", "11:17"],
+      ["Lunch / Learn", "Lunch", "11:19", "12:20"],
+      ["4th Period", "Regular Class", "12:22", "13:07"],
+      ["5th Period", "Regular Class", "13:11", "13:56"],
+      ["7th Period", "Regular Class", "14:00", "14:45"]
+    ]
+  },
+
+  "2026-06-04": {
+    day: "E Day Finals",
+    periods: [
+      ["1st Period", "Regular Class", "08:00", "08:50"],
+      ["7th Period Final", "Final Unit Assessment", "08:54", "09:39"],
+      ["2nd Period", "Regular Class", "09:43", "10:28"],
+      ["4th Period", "Regular Class", "10:32", "11:17"],
+      ["Lunch / Learn", "Lunch", "11:19", "12:20"],
+      ["5th Period", "Regular Class", "12:22", "13:07"],
+      ["6th Period", "Regular Class", "13:11", "13:56"],
+      ["3rd Period", "Regular Class", "14:00", "14:45"]
+    ]
+  },
+
+  "2026-06-05": {
+    day: "Make-Up Exam Day",
+    periods: [
+      ["Make-Up Exams", "Session 1", "08:00", "09:15"],
+      ["Make-Up Exams", "Session 2", "09:20", "10:25"],
+      ["Dismissal", "Last Student Day", "10:45", "10:45"]
+    ]
+  }
+};
 
   function timeToDate(time) {
     const [h, m] = time.split(":").map(Number);
@@ -1449,10 +1517,26 @@ padding-top: 25px;
       letterDay = await response.json() || "A";
     } catch {}
 
-    const todaySchedule = schedules[letterDay] || schedules.A;
+    let scheduleMode = "regular";
+
+try {
+  const modeResponse = await fetch(SCHEDULE_MODE_URL + "?t=" + Date.now());
+  scheduleMode = await modeResponse.json() || "regular";
+} catch {}
+
+let todaySchedule;
+let displayDay;
+
+if (examSchedules[scheduleMode]) {
+  todaySchedule = examSchedules[scheduleMode].periods;
+  displayDay = examSchedules[scheduleMode].day;
+} else {
+  todaySchedule = schedules[letterDay] || schedules.A;
+  displayDay = letterDay + " Day";
+}
     const now = new Date();
 
-    document.getElementById("schedule-day").textContent = letterDay + " Day";
+    document.getElementById("schedule-day").textContent = displayDay;
 
     let current = null;
 
