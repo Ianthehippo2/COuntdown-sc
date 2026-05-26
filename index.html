@@ -1516,19 +1516,12 @@ padding-top: 25px;
       letterDay = await response.json() || "A";
     } catch {}
 
-    let scheduleMode = "regular";
-
-try {
-  const modeResponse = await fetch(SCHEDULE_MODE_URL + "?t=" + Date.now());
-  scheduleMode = await modeResponse.json() || "regular";
-} catch {}
-
-let todaySchedule;
+    let todaySchedule;
 let displayDay;
 
-if (examSchedules[scheduleMode]) {
-  todaySchedule = examSchedules[scheduleMode].periods;
-  displayDay = examSchedules[scheduleMode].day;
+if (examSchedules[letterDay]) {
+  todaySchedule = examSchedules[letterDay].periods;
+  displayDay = examSchedules[letterDay].day;
 } else {
   todaySchedule = schedules[letterDay] || schedules.A;
   displayDay = letterDay + " Day";
