@@ -1,4 +1,3 @@
-```markdown
 # 🎓 Schooled Official Countdown
 
 <div align="center">
