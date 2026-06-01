@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Schooled Logo](https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/KKC1.png)
+![Schooled Logo](https://raw.githubusercontent.com/Ianthehippo2/COuntdown-sc/refs/heads/main/schooled.png)
 
 ### The Official Countdown Experience for the Final Days of Schooled
 
