@@ -270,6 +270,3 @@ Champs Sports is a trademark of Foot Locker Retail, Inc.
 ⏳ June 4, 2026
 
 </div>
-```
-
-You can paste this directly into a `README.md` file on GitHub and it will render as a professional project page.
