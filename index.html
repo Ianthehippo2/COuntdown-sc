@@ -1716,5 +1716,110 @@ setInterval(loadSiteNotification, 5000);
     <p id="notification-message">Loading...</p>
   </div>
 </div>
+  
+<div id="thank-you-cover">
+  <div class="thank-you-box">
+    <div class="badge">Schooled 2026 Complete</div>
+    <h1>THANK YOU!</h1>
+    <p>Thanks for watching the countdown. See you next school year.</p>
+    <h2>Countdown to Next Year</h2>
+    <div id="next-year-countdown">Loading...</div>
+  </div>
+</div>
+
+<style>
+  #thank-you-cover {
+    position: fixed;
+    inset: 0;
+    z-index: 9999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #0b1f33, #020814);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Anton', Arial, sans-serif;
+  }
+
+  .thank-you-box {
+    width: min(92%, 720px);
+    padding: 45px 30px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.75);
+    box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+    backdrop-filter: blur(20px);
+  }
+
+  .thank-you-box h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    margin: 10px 0;
+    letter-spacing: 3px;
+  }
+
+  .thank-you-box p {
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    margin-bottom: 25px;
+  }
+
+  .thank-you-box h2 {
+    font-size: clamp(1.4rem, 4vw, 2.5rem);
+    margin-bottom: 15px;
+  }
+
+  #next-year-countdown {
+    display: inline-block;
+    padding: 18px 26px;
+    border-radius: 18px;
+    font-size: clamp(1.4rem, 4vw, 2.8rem);
+    background: linear-gradient(135deg, #4FC3F7, #0288D1);
+    box-shadow: 0 0 35px rgba(79,195,247,0.7);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.5);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  body {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  function updateNextYearCountdown() {
+    const target = new Date("2026-08-25T08:00:00-04:00");
+    const now = new Date();
+    const diff = target - now;
+
+    const countdown = document.getElementById("next-year-countdown");
+
+    if (diff <= 0) {
+      countdown.textContent = "WELCOME BACK!";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    countdown.textContent =
+      days + "D " +
+      hours.toString().padStart(2, "0") + "H " +
+      minutes.toString().padStart(2, "0") + "M " +
+      seconds.toString().padStart(2, "0") + "S";
+  }
+
+  updateNextYearCountdown();
+  setInterval(updateNextYearCountdown, 1000);
+</script>
+  
 </body>
 </html>
