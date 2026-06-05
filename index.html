@@ -1791,16 +1791,25 @@ Until then, thank you for an amazing year.
   }
 
   .thank-you-box {
-    width: min(92%, 720px);
-    padding: 45px 30px;
-    border-radius: 30px;
-    background: rgba(255,255,255,0.12);
-    border: 2px solid rgba(255,255,255,0.75);
-    box-shadow: 0 25px 80px rgba(0,0,0,0.6);
-    backdrop-filter: blur(20px);
-    max-height: 85vh;
-    overflow-y: auto;
-  }
+  width: min(95%, 1000px);
+  height: 90vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+  border-radius: 30px;
+
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.75);
+
+  box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px);
+
+  overflow: hidden;
+}
 
   .thank-you-box h1 {
     font-size: clamp(3rem, 9vw, 7rem);
